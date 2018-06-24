@@ -40,7 +40,7 @@ pipeline {
           sh "echo ${BUILD_TAG}"
           
           
-          docker.withRegistry('https://172520894707.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:ecr-credentials') {
+          docker.withRegistry('https://1725*******4707.dkr.ecr.us-east-1.amazonaws.com','ecr:us-east-1:ecr-credentials') {
             def image = docker.build("cpo-ucl-load:cloudbees-test")
             image.push()
           }
@@ -53,7 +53,7 @@ pipeline {
         unstash 'aws-stash'
         script {
           withAWS(region: 'us-east-1', credentials: 'jenkins-username-password-credentials') {
-            def outputs = cfnCreateChangeSet(stack:'cpo-ucl-load-alpha', changeSet:'test-change-set', file:'aws/cpo-ucl-batch.yaml', params:['ImageVersion=cloudbees-test'], keepParams:['DBUserName', 'EnvironmnetType', 'ImageName', 'RepositoryUri'], tags: ['test=test'],pollInterval:1000, roleArn:'arn:aws:iam::172520894707:role/jenkins-access')
+            def outputs = cfnCreateChangeSet(stack:'cpo-ucl-load-alpha', changeSet:'test-change-set', file:'aws/cpo-ucl-batch.yaml', params:['ImageVersion=cloudbees-test'], keepParams:['DBUserName', 'EnvironmnetType', 'ImageName', 'RepositoryUri'], tags: ['test=test'],pollInterval:1000, roleArn:'arn:aws:iam::17****94707:role/jenkins-access')
           }
         }
         
